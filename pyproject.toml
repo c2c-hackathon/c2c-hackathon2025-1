@@ -1,0 +1,31 @@
+[project]
+name = "c2c-hackathon-2025"
+version = "0.1.0"
+description = "Code2College HackTogether Challenge 2025"
+authors = []
+readme = "README.md"
+requires-python = ">=3.9,<4"
+dependencies = [
+    "gpiozero (>=2.0.1,<3.0.0); platform_system != 'Windows'",
+    "colorzero (>=2.0,<3.0)",
+    "simpleaudio (>=1.0.4,<2.0.0); platform_system != 'Windows'",
+    "numpy (>=2.0.0,<2.3.0); python_version < '3.11'",
+    "numpy (>=2.3.3,<3.0); python_version >= '3.11'",
+]
+
+[tool.poetry]
+package-mode = false # we are only using Poetry for dependency management
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.4.2"
+pytest-mock = "^3.15.0"
+pytest-snapshot = "^0.9.0"
+
+[tool.pytest.ini_options]
+markers = [
+    "testing_the_tests: tests that validate the unit tests themselves work. These require using -m testing_the_tests to run.",
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
