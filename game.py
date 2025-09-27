@@ -92,12 +92,12 @@ class Game:
         self.colors = [
             "red",
             "yellow",
-            "orange",
+            "forestgreen",
             "green",
             "blue",
             "purple",
             "white",
-            "brown",
+            "hotpink",
         ]
         
         self.sounds = [
@@ -129,7 +129,13 @@ class Game:
     
     def set_pairs(self):
         
-
+        for i in range(8):
+            for j in range(2):
+                list1 = self.pairs[i]
+                value1 = list1[j]
+                button = self.button_pad.get_button(value1)
+                self.speaker.play_preloaded_wav(self.sounds[i], wait_until_done=True)  # Play a sound when button is pressed
+                self.button_pad.set_button_led_color(button, self.colors[i])
 
     
     def _start_game(self):
@@ -157,7 +163,10 @@ def _main():
     
     game = Game(button_pad)
     game.create_pairs()
+    game.set_pairs()
     game.play()
+    
+
 
 
 if __name__ == "__main__":

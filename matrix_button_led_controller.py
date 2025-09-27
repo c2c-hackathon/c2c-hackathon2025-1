@@ -199,6 +199,7 @@ class MatrixButtonLEDController:
             Button indices are 1-based to match physical button labeling.
             For a 4x4 matrix, valid indices are 1-16.
         """
+        
         return self.matrix_button_board[index - 1]
     
     def run(self):
