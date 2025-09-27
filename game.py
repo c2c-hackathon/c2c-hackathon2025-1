@@ -107,6 +107,7 @@ class Game:
 
                 if matched_pairs == total_pairs:
                     print("Game Over - All pairs matched!")
+                    self.speaker.play_preloaded_wav("end_of_game", wait_until_done=True)
                     self.end()
                     break
 
@@ -159,6 +160,7 @@ class Game:
         self.speaker.play_preloaded_wav("arrow2", wait_until_done=True)
 
     def play(self):
+        self.speaker.play_preloaded_wav("ahem_x", wait_until_done=True)
         self._start_game()
         try:
             input("Press Enter to exit the game...")
