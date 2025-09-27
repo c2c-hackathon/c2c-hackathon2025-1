@@ -140,45 +140,6 @@ class Game:
 
     def initialize_button_pad(self):
         self.button_pad.clear_button_pad()
-        # TODO: Set all buttons to a color, List of colors to choose from: https://github.com/waveform80/colorzero/blob/master/colorzero/tables.py#L315
-        # sounds are available in the sounds directory
-        self.colors = [
-            "red",
-            "yellow",
-            "forestgreen",
-            "green",
-            "blue",
-            "purple",
-            "white",
-            "hotpink",
-        ]
-        
-        self.sounds = [
-            "thunder2",
-            "fart_z",
-            "baby_x",
-            "slide_whistle_x",
-            "arrow2",
-            "phone_pay",
-            "bloop_x",
-            "car_horn_x",
-        ]
-        self.numbers1 = [1,2,3,4,5,6,7,8]
-        self.numbers2 = [9,10,11,12,13,14,15,16]
-        # TODO: assign to buttons
-    
-    def set_pairs(self):
-        
-        for i in range(8):
-            for j in range(2):
-                list1 = self.pairs[i]
-                value1 = list1[j]
-                button = self.button_pad.get_button(value1)
-                self.speaker.play_preloaded_wav(self.sounds[i], wait_until_done=True)  # Play a sound when button is pressed
-                self.button_pad.set_button_led_color(button, self.colors[i])
-
-    
-
 
     def create_pairs(self):
         self.pairs = []
@@ -215,10 +176,7 @@ def _main():
 
     game = Game(button_pad)
     game.create_pairs()
-    game.set_pairs()
     game.play()
-    
-
 
 if __name__ == "__main__":
     _main()
