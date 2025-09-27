@@ -4,6 +4,7 @@ import threading
 import time
 import typing
 from dataclasses import dataclass
+import random
 
 import library
 from matrix_button_led_controller import MatrixButtonLEDController
@@ -20,6 +21,8 @@ class ButtonInfo:
 
 
 class Game:
+    
+    
     def __init__(self, button_pad: MatrixButtonLEDController):
         self.button_pad = button_pad
         self.button_pad.assign_button_events(self.when_pressed, self.when_held, self.when_released)
@@ -31,6 +34,11 @@ class Game:
         self.started = False
         self.play_game = True
         self.queue = queue.Queue()
+        self.numbers1: typing.List[str] = []
+        self.numbers2: typing.List[str] = []
+        self.pairs: typing.List[str] = []
+
+
 
     @property
     def correct_sound(self):
@@ -81,6 +89,17 @@ class Game:
         self.button_pad.clear_button_pad()
         # TODO: Set all buttons to a color, List of colors to choose from: https://github.com/waveform80/colorzero/blob/master/colorzero/tables.py#L315
         # sounds are available in the sounds directory
+        self.colors = [
+            "red",
+            "yellow",
+            "orange",
+            "green",
+            "blue",
+            "purple",
+            "white",
+            "brown",
+        ]
+        
         self.sounds = [
             "thunder2",
             "fart_z",
@@ -91,8 +110,28 @@ class Game:
             "bloop_x",
             "car_horn_x",
         ]
+        self.numbers1 = [1,2,3,4,5,6,7,8]
+        self.numbers2 = [9,10,11,12,13,14,15,16]
         # TODO: assign to buttons
 
+    def create_pairs(self):
+        i = 0
+        self.numbers1 = [1,2,3,4,5,6,7,8]
+        self.numbers2 = [9,10,11,12,13,14,15,16]
+        for i in range(1,9):
+            v1 = random.choice(self.numbers1)
+            v2 = random.choice(self.numbers2)
+            self.pairs.append([v1,v2])
+            self.numbers1.remove(v1)
+            self.numbers2.remove(v2)
+            print(self.pairs),
+            i = i + 1,
+    
+    def set_pairs(self):
+        
+
+
+    
     def _start_game(self):
         self.thread = threading.Thread(target=self._background_logic_checker)
         self.thread.start()
@@ -115,7 +154,9 @@ def _main():
     button_pad = MatrixButtonLEDController(
         scan_delay=0.020, pwm_freq=10000, display_pause=0.001, use_led_hat=USE_LED_HAT
     )
+    
     game = Game(button_pad)
+    game.create_pairs()
     game.play()
 
 
